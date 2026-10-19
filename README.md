@@ -109,3 +109,6 @@ Para gerar arquivos de massa de dados e medir o tempo de execução conforme esp
 
 A alocação e desalocação dos nós dinâmicos da lista encadeada são gerenciadas para garantir zero vazamentos de memória. Para verificar com o Valgrind:
 
+```bash
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./baralho < entrada.txt
+

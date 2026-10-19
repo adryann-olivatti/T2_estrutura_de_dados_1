@@ -7,7 +7,7 @@
 
 ---
 
-## 📄 Sobre o Projeto
+## Sobre o Projeto
 
 Este projeto implementa um sistema em linguagem C para simulação e manipulação de um baralho virtual com capacidade de $1$ a $100.000$ cartas, processando até $200.000$ comandos por execução. O programa lê comandos através da entrada padrão (`stdin`) e imprime os resultados na saída padrão (`stdout`), encerrando a execução com o comando `FIM`.
 
@@ -15,7 +15,7 @@ O principal objetivo técnico do trabalho é a escolha, implementação e defesa
 
 ---
 
-## 🏗️ Arquitetura e Estruturas de Dados
+## Arquitetura e Estruturas de Dados
 
 Para atender aos requisitos do projeto, foram combinadas duas estruturas principais:
 
@@ -41,7 +41,7 @@ O histórico armazena as operações que modificam o baralho (`CORTA`, `SOBE`, `
 
 ---
 
-## 🛠️ Comandos Suportados
+## Comandos Suportados
 
 | Comando | Descrição | Saída |
 | :--- | :--- | :--- |
@@ -58,7 +58,7 @@ O histórico armazena as operações que modificam o baralho (`CORTA`, `SOBE`, `
 
 ---
 
-## 💻 Compilação e Execução
+## Compilação e Execução
 
 O projeto foi desenvolvido em linguagem C utilizando os padrões ANSI C/C11 e a biblioteca padrão (`stdlib.h`, `stdio.h`, `stdbool.h`).
 
@@ -82,7 +82,7 @@ make clean
 
 ---
 
-## 📊 Medição de Desempenho e Rajadas
+## Medição de Desempenho e Rajadas
 
 Para gerar arquivos de massa de dados e medir o tempo de execução conforme especificado no enunciado:
 
@@ -105,7 +105,7 @@ Para gerar arquivos de massa de dados e medir o tempo de execução conforme esp
 
 ---
 
-## 🔍 Validação de Memória (Valgrind)
+## Validação de Memória (Valgrind)
 
 A alocação e desalocação dos nós dinâmicos da lista encadeada são gerenciadas para garantir zero vazamentos de memória. Para verificar com o Valgrind:
 

@@ -12,7 +12,7 @@ struct no_{
 struct baralho_{
     NO *sentinela;
     int tamanho;
-}
+};
 
 BARALHO* criar_baralho(int n){
     BARALHO *b = (BARALHO *b)malloc(sizeof(BARALHO));

@@ -44,6 +44,7 @@ BARALHO* criar_baralho(int n){
         b->sentinela->ant = novo;
         b->tamanho++;
         }
+      return b;
     }
 
 

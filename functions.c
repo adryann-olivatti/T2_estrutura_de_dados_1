@@ -14,11 +14,12 @@ struct baralho_{
     int tamanho;
 };
 
-BARALHO* criar_baralho(int n){
-    BARALHO *b = (BARALHO *b)malloc(sizeof(BARALHO));
-    if(b == NULL){
+BARALHO* criar_baralho(int n) {
+    BARALHO *b = (BARALHO *) malloc(sizeof(BARALHO)); 
+    if (b == NULL) {
         return NULL;
     }
+
     b->sentinela = (NO *) malloc(sizeof(NO));
     if (b->sentinela == NULL) {
         free(b);
@@ -29,27 +30,35 @@ BARALHO* criar_baralho(int n){
     b->sentinela->ant = b->sentinela;
     b->tamanho = 0;
 
-    for(int i = 1; i <= n; i++){
-        NO *novo = (NO *)malloc(sizeof(NO));
-        if(novo == NULL){
+    for (int i = 1; i <= n; i++) {
+        NO *novo = (NO *) malloc(sizeof(NO));
+        if (novo == NULL) {
+            // Libera a memória alocada previamente em caso de falha
+            NO *atual = b->sentinela->prox;
+            while (atual != b->sentinela) {
+                NO *temp = atual;
+                atual = atual->prox;
+                free(temp);
+            }
+            free(b->sentinela);
+            free(b);
             return NULL;
-                }
+        }
         novo->item = i;
 
-    // Inserção no final: entre o antigo último nó e o sentinela
+        // Inserção no final
         NO *ultimo = b->sentinela->ant;
         novo->prox = b->sentinela;
         novo->ant = ultimo;
         ultimo->prox = novo;
         b->sentinela->ant = novo;
         b->tamanho++;
-        }
-      return b;
     }
 
+    return b; 
+}
 
 boolean corta_baralho(BARALHO *b, ITEM x) {
-
    if (b == NULL || b->tamanho == 0) {
        return false;
    }
@@ -63,12 +72,10 @@ boolean corta_baralho(BARALHO *b, ITEM x) {
        return false;
    }
 
-  
    if (atual == b->sentinela->prox) {
        return true;
    }
 
-    
    NO *primeiro = b->sentinela->prox; 
    NO *ultimo   = b->sentinela->ant;  
    NO *no_x     = atual;              

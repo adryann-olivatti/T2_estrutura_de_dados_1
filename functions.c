@@ -16,10 +16,10 @@ struct baralho_{
 
 BARALHO* criar_baralho(int n){
     BARALHO *b = (BARALHO *b)malloc(sizeof(BARALHO));
-    if(p == NULL){
+    if(b == NULL){
         return NULL;
     }
-    p->sentinela = (NO *) malloc(sizeof(NO));
+    b->sentinela = (NO *) malloc(sizeof(NO));
     if (b->sentinela == NULL) {
         free(b);
         return NULL;

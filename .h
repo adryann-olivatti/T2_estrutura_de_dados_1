@@ -1,16 +1,23 @@
 #ifndef BARALHO_H
 #define BARALHO_H
 
+#define FALSE 0
+#define TRUE 1
+typedef int ITEM;
+#define ERRO -32000
+#define boolean int
+
 typedef struct no_ NO;
 typedef struct baralho_ BARALHO;
-BARALHO* baralho_baralho(int n);
-void baralho_corta(BARALHO *b, int x);
-void baralho_sobe(BARALHO *b, int x);
-void baralho_vira(BARALHO *b);
-void baralho_viratopo(BARALHO *b, int k);
-void baralho_desfaz(BARALHO *b);
-int baralho_carta(BARALHO *b, int p);
-int baralho_posicao(BARALHO *b, int x);
-void baralho_mostra(BARALHO *b);
+BARALHO* criar_baralho(int n);
+boolean corta_baralho(BARALHO *b, int x);
+boolean sobe_baralho(BARALHO *b, int x);
+boolean vira_baralho(BARALHO *b);
+boolean viratopo_baralho(BARALHO *b, int k);
+boolean desfaz_baralho(BARALHO *b);
+ITEM carta_baralho(BARALHO *b, int p);
+int posicao_baralho(BARALHO *b, int x);
+ITEM mostra_baralho(BARALHO *b);
+boolean apagar_baralho(BARALHO **b);
 
 #endif

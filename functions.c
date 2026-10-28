@@ -15,19 +15,19 @@ struct baralho_{
 }
 
 BARALHO* criar_baralho(int n){
-    BARALHO *p = (BARALHO *p)malloc(sizeof(BARALHO));
+    BARALHO *b = (BARALHO *b)malloc(sizeof(BARALHO));
     if(p == NULL){
         return NULL;
     }
     p->sentinela = (NO *) malloc(sizeof(NO));
-    if (p->sentinela == NULL) {
-        free(p);
+    if (b->sentinela == NULL) {
+        free(b);
         return NULL;
     }
     
-    p->sentinela->prox = p->sentinela;
-    p->sentinela->ant = p->sentinela;
-    p->tamanho = 0;
+    b->sentinela->prox = b->sentinela;
+    b->sentinela->ant = b->sentinela;
+    b->tamanho = 0;
 
     for(int i = 1; i <= n; i++){
         NO *novo = (NO *)malloc(sizeof(NO));
@@ -37,50 +37,50 @@ BARALHO* criar_baralho(int n){
         novo->item = i;
 
     // Inserção no final: entre o antigo último nó e o sentinela
-        NO *ultimo = p->sentinela->ant;
-        novo->prox = p->sentinela;
+        NO *ultimo = b->sentinela->ant;
+        novo->prox = b->sentinela;
         novo->ant = ultimo;
         ultimo->prox = novo;
-        p->sentinela->ant = novo;
-        p->tamanho++;
+        b->sentinela->ant = novo;
+        b->tamanho++;
         }
     }
 
 
-boolean corta_baralho(BARALHO *p, ITEM x) {
+boolean corta_baralho(BARALHO *b, ITEM x) {
 
-   if (p == NULL || p->tamanho == 0) {
+   if (b == NULL || b->tamanho == 0) {
        return false;
    }
 
-   NO *atual = p->sentinela->prox;
-   while (atual != p->sentinela && atual->item != x) {
+   NO *atual = b->sentinela->prox;
+   while (atual != b->sentinela && atual->item != x) {
        atual = atual->prox;
    }
 
-   if (atual == p->sentinela) {
+   if (atual == b->sentinela) {
        return false;
    }
 
   
-   if (atual == p->sentinela->prox) {
+   if (atual == b->sentinela->prox) {
        return true;
    }
 
     
-   NO *primeiro = p->sentinela->prox; 
-   NO *ultimo   = p->sentinela->ant;  
+   NO *primeiro = b->sentinela->prox; 
+   NO *ultimo   = b->sentinela->ant;  
    NO *no_x     = atual;              
    NO *ant_x    = no_x->ant;          
 
    ultimo->prox = primeiro;
    primeiro->ant = ultimo;
 
-   ant_x->prox = p->sentinela;
-   p->sentinela->ant = ant_x;
+   ant_x->prox = b->sentinela;
+   b->sentinela->ant = ant_x;
 
-   p->sentinela->prox = no_x;
-   no_x->ant = p->sentinela;
+   b->sentinela->prox = no_x;
+   no_x->ant = b->sentinela;
 
    return true; 
 }

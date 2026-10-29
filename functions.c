@@ -33,7 +33,6 @@ BARALHO* criar_baralho(int n) {
     for (int i = 1; i <= n; i++) {
         NO *novo = (NO *) malloc(sizeof(NO));
         if (novo == NULL) {
-            // Libera a memória alocada previamente em caso de falha
             NO *atual = b->sentinela->prox;
             while (atual != b->sentinela) {
                 NO *temp = atual;
@@ -46,7 +45,6 @@ BARALHO* criar_baralho(int n) {
         }
         novo->item = i;
 
-        // Inserção no final
         NO *ultimo = b->sentinela->ant;
         novo->prox = b->sentinela;
         novo->ant = ultimo;
@@ -93,9 +91,93 @@ boolean corta_baralho(BARALHO *b, ITEM x) {
    return true; 
 }
 
-boolean sobe_baralho(BARALHO *b, int x)
-boolean vira_baralho(BARALHO *b)
-boolean viratopo_baralho(BARALHO *b, int k)
+boolean sobe_baralho(BARALHO *b, int x) {
+    if (b == NULL || b->tamanho == 0) {
+        return FALSE;
+    }
+
+    NO *atual = b->sentinela->prox;
+
+    while (atual != b->sentinela && atual->item != x) {
+        atual = atual->prox;
+    }
+
+    if (atual == b->sentinela) {
+        return FALSE;
+    }
+
+    if (atual == b->sentinela->prox) {
+        return TRUE;
+    }
+
+    atual->ant->prox = atual->prox;
+    atual->prox->ant = atual->ant;
+
+    atual->prox = b->sentinela->prox;
+    atual->ant = b->sentinela;
+
+    b->sentinela->prox->ant = atual;
+    b->sentinela->prox = atual;
+
+    return TRUE;
+}
+
+boolean vira_baralho(BARALHO *b) {
+    if (b == NULL) {
+        return FALSE;
+    }
+
+    NO *atual = b->sentinela;
+
+    do {
+        NO *temp = atual->prox;
+        atual->prox = atual->ant;
+        atual->ant = temp;
+        atual = temp;
+    } while (atual != b->sentinela);
+
+    return TRUE;
+}
+
+boolean viratopo_baralho(BARALHO *b, int k) {
+    if (b == NULL || k < 1 || k > b->tamanho) {
+        return FALSE;
+    }
+
+    if (k == 1) {
+        return TRUE;
+    }
+
+    NO *primeiro = b->sentinela->prox;
+    NO *ultimo_k = primeiro;
+
+    for (int i = 1; i < k; i++) {
+        ultimo_k = ultimo_k->prox;
+    }
+
+    NO *restante = ultimo_k->prox;
+    NO *anterior = restante;
+    NO *atual = primeiro;
+
+    for (int i = 0; i < k; i++) {
+        NO *proximo = atual->prox;
+        atual->prox = anterior;
+        atual->ant = proximo;
+        anterior = atual;
+        atual = proximo;
+    }
+
+    b->sentinela->prox = ultimo_k;
+    ultimo_k->ant = b->sentinela;
+
+    if (restante != b->sentinela) {
+        restante->ant = primeiro;
+    } else {
+        b->sentinela->ant = primeiro;
+    }
+
+    return TRUE;
+}
 boolean desfaz_baralho(BARALHO *b)
 ITEM carta_baralho(BARALHO *b, int p) {
      if (b == NULL || p < 1 || p > b->tamanho) {

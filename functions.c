@@ -93,3 +93,36 @@ boolean corta_baralho(BARALHO *b, ITEM x) {
    return true; 
 }
 
+boolean sobe_baralho(BARALHO *b, int x);
+boolean vira_baralho(BARALHO *b);
+boolean viratopo_baralho(BARALHO *b, int k);
+boolean desfaz_baralho(BARALHO *b);
+ITEM carta_baralho(BARALHO *b, int p);
+     if (b == NULL || p < 1 || p > b->tamanho) {
+        return ERRO;
+    }
+
+    NO *atual = b->sentinela->prox;
+    for (int i = 1; i < p; i++) {
+        atual = atual->prox;
+    }
+    return atual->item;
+}
+int posicao_baralho(BARALHO *b, int x);
+    if (b == NULL) {
+        return ERRO;
+    }
+
+    int pos = 1;
+    NO *atual = b->sentinela->prox;
+    while (atual != b->sentinela && atual->item != x) {
+        atual = atual->prox;
+        pos++;
+    }
+    if (atual == b->sentinela) {
+        return ERRO;
+    }
+    return pos;
+}
+ITEM mostra_baralho(BARALHO *b);
+boolean apagar_baralho(BARALHO **b);

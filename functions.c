@@ -93,11 +93,11 @@ boolean corta_baralho(BARALHO *b, ITEM x) {
    return true; 
 }
 
-boolean sobe_baralho(BARALHO *b, int x);
-boolean vira_baralho(BARALHO *b);
-boolean viratopo_baralho(BARALHO *b, int k);
-boolean desfaz_baralho(BARALHO *b);
-ITEM carta_baralho(BARALHO *b, int p);
+boolean sobe_baralho(BARALHO *b, int x)
+boolean vira_baralho(BARALHO *b)
+boolean viratopo_baralho(BARALHO *b, int k)
+boolean desfaz_baralho(BARALHO *b)
+ITEM carta_baralho(BARALHO *b, int p) {
      if (b == NULL || p < 1 || p > b->tamanho) {
         return ERRO;
     }
@@ -108,7 +108,7 @@ ITEM carta_baralho(BARALHO *b, int p);
     }
     return atual->item;
 }
-int posicao_baralho(BARALHO *b, int x);
+int posicao_baralho(BARALHO *b, int x) {
     if (b == NULL) {
         return ERRO;
     }
@@ -124,5 +124,34 @@ int posicao_baralho(BARALHO *b, int x);
     }
     return pos;
 }
-ITEM mostra_baralho(BARALHO *b);
-boolean apagar_baralho(BARALHO **b);
+ITEM mostra_baralho(BARALHO *b) {
+    if (b == NULL) {
+        return ERRO;
+    }
+    for (NO *atual = b->sentinela->prox; atual != b->sentinela; atual = atual->prox) {
+        printf("%d", atual->item);
+
+        if (atual->prox == b->sentinela) {
+            printf("\n");
+        } else {
+            printf(" ");
+        }
+    }
+    return 0;
+}
+boolean apagar_baralho(BARALHO **b) {
+     if (b == NULL || *b == NULL) {
+        return FALSE;
+    }
+
+    NO *atual = (*b)->sentinela->prox;
+    while (atual != (*b)->sentinela) {
+        NO *temp = atual;
+        atual = atual->prox;
+        free(temp);
+    }
+    free((*b)->sentinela);
+    free(*b);
+    *b = NULL;
+    return TRUE;
+}

@@ -1,7 +1,9 @@
 # Makefile - Trabalho Pratico 2 (baralho)
-# Gera dois executaveis separados: cartaviva (programa principal) e gerador.
+# Gera dois executaveis separados: baralho (programa principal) e gerador.
 
 CC     = gcc
+# nome do executavel do programa principal (troque aqui, se necessario)
+PROG   = baralho
 CFLAGS = -std=c11 -Wall -Wextra -O2 -g -MMD -MP
 
 # Todos os .c, exceto o gerador, formam o programa principal.
@@ -14,9 +16,9 @@ ENTRADA ?= entrada.txt
 
 .PHONY: all clean valgrind zip
 
-all: cartaviva gerador
+all: $(PROG) gerador
 
-cartaviva: $(OBJ_MAIN)
+$(PROG): $(OBJ_MAIN)
 	$(CC) $(CFLAGS) -o $@ $^
 
 gerador: gerador.o
@@ -26,8 +28,8 @@ gerador: gerador.o
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # verifica vazamentos e acessos invalidos
-valgrind: cartaviva
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --error-exitcode=1 ./cartaviva < $(ENTRADA) > /dev/null
+valgrind: $(PROG)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --error-exitcode=1 ./$(PROG) < $(ENTRADA) > /dev/null
 
 # empacota a entrega: make zip NUSP=<numero USP de quem submete>
 # os arquivos ficam na raiz do .zip, sem pasta em volta
@@ -36,7 +38,7 @@ zip:
 	zip T2_$(NUSP).zip *.c *.h Makefile relatorio.pdf
 
 clean:
-	rm -f cartaviva gerador *.o *.d entrada.txt
+	rm -f $(PROG) gerador *.o *.d entrada.txt
 
 # dependencias de cabecalho geradas pelo compilador (-MMD)
 -include $(wildcard *.d)

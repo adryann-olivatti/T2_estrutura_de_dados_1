@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define OPS_POR_GRUPO 1
+#define OPS_POR_GRUPO 2
 
 static uint64_t estado;
 

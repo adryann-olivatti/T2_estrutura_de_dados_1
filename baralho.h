@@ -9,7 +9,6 @@ typedef int ITEM;
 
 typedef struct no_ NO;
 typedef struct baralho_ BARALHO;
-typedef struct historico_ HISTORICO;
 BARALHO* criar_baralho(int n);
 boolean corta_baralho(BARALHO *b, int x);
 boolean sobe_baralho(BARALHO *b, int x);
@@ -20,6 +19,4 @@ ITEM carta_baralho(BARALHO *b, int p);
 int posicao_baralho(BARALHO *b, int x);
 ITEM mostra_baralho(BARALHO *b);
 boolean apagar_baralho(BARALHO **b);
-boolean adicionar_historico(HISTORICO *h, char *palavra);
-boolean remover_historico(HISTORICO *h, char *palavra);
 #endif

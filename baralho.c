@@ -298,6 +298,9 @@ boolean apagar_baralho(BARALHO **b) {
         return FALSE;
     }
 
+    h_inicio = 0;  
+    h_qtd = 0;
+
     NO *atual = (*b)->sentinela->prox;
     while (atual != (*b)->sentinela) {
         NO *temp = atual;

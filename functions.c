@@ -14,36 +14,36 @@ struct baralho_{
     int tamanho;
 };
 
-/* ---------- historico (vetor estatico circular, ate 100 operacoes) ---------- */   // NOVO
-#define CORTA 0                                                                      // NOVO
-#define SOBE 1                                                                       // NOVO
-#define VIRA 2                                                                       // NOVO
-#define VIRATOPO 3                                                                   // NOVO
-                                                                                     // NOVO
-typedef struct {                                                                     // NOVO
-    int tipo;                                                                        // NOVO
-    NO *no;   /* CORTA: antigo topo | SOBE: no que estava acima de x */              // NOVO
-    int k;    /* VIRATOPO: k */                                                      // NOVO
-} OPERACAO;                                                                          // NOVO
-                                                                                     // NOVO
-static OPERACAO historico[100];                                                      // NOVO
-static int h_inicio = 0;    /* posicao da operacao mais antiga */                    // NOVO
-static int h_qtd = 0;       /* quantas operacoes estao guardadas */                  // NOVO
-static int desfazendo = 0;  /* 1 enquanto o desfaz roda: nao registra */             // NOVO
-                                                                                     // NOVO
-static void registra(int tipo, NO *no, int k) {                                      // NOVO
-    if (desfazendo) {                                                                // NOVO
-        return;                                                                      // NOVO
-    }                                                                                // NOVO
-    if (h_qtd == 100) {                 /* cheio: descarta a mais antiga */          // NOVO
-        h_inicio = (h_inicio + 1) % 100;                                             // NOVO
-        h_qtd--;                                                                     // NOVO
-    }                                                                                // NOVO
-    historico[(h_inicio + h_qtd) % 100].tipo = tipo;                                 // NOVO
-    historico[(h_inicio + h_qtd) % 100].no = no;                                     // NOVO
-    historico[(h_inicio + h_qtd) % 100].k = k;                                       // NOVO
-    h_qtd++;                                                                         // NOVO
-}                                                                                    // NOVO
+
+#define CORTA 0                                                                      
+#define SOBE 1                                                                       
+#define VIRA 2                                                                       
+#define VIRATOPO 3                                                                   
+                                                                                     
+typedef struct {                                                                    
+    int tipo;                                                                        
+    NO *no;                 
+    int k;                                                          
+} OPERACAO;                                                                          
+                                                                                     
+static OPERACAO historico[100];                                                      
+static int h_inicio = 0;    
+static int h_qtd = 0;       
+static int desfazendo = 0;  
+                                                                                     
+static void registra(int tipo, NO *no, int k) {                                      
+    if (desfazendo) {                                                                
+        return;                                                                      
+    }                                                                                
+    if (h_qtd == 100) {                 
+        h_inicio = (h_inicio + 1) % 100;                                             
+        h_qtd--;                                                                     
+    }                                                                                
+    historico[(h_inicio + h_qtd) % 100].tipo = tipo;                                 
+    historico[(h_inicio + h_qtd) % 100].no = no;                                     
+    historico[(h_inicio + h_qtd) % 100].k = k;                                       
+    h_qtd++;                                                                         
+}                                                                                    
 
 BARALHO* criar_baralho(int n) {
     BARALHO *b = (BARALHO *) malloc(sizeof(BARALHO)); 
@@ -60,8 +60,8 @@ BARALHO* criar_baralho(int n) {
     b->sentinela->prox = b->sentinela;
     b->sentinela->ant = b->sentinela;
     b->tamanho = 0;
-    h_inicio = 0;   // NOVO
-    h_qtd = 0;      // NOVO
+    h_inicio = 0;   
+    h_qtd = 0;      
 
     for (int i = 1; i <= n; i++) {
         NO *novo = (NO *) malloc(sizeof(NO));
@@ -103,7 +103,7 @@ boolean corta_baralho(BARALHO *b, ITEM x) {
        return FALSE;
    }
 
-   registra(CORTA, b->sentinela->prox, 0);   // NOVO
+   registra(CORTA, b->sentinela->prox, 0);   
 
    if (atual == b->sentinela->prox) {
        return TRUE;
@@ -141,7 +141,7 @@ boolean sobe_baralho(BARALHO *b, int x) {
         return FALSE;
     }
 
-    registra(SOBE, atual->ant, 0);   // NOVO
+    registra(SOBE, atual->ant, 0);   
 
     if (atual == b->sentinela->prox) {
         return TRUE;
@@ -164,7 +164,7 @@ boolean vira_baralho(BARALHO *b) {
         return FALSE;
     }
 
-    registra(VIRA, NULL, 0);   // NOVO
+    registra(VIRA, NULL, 0);   
 
     NO *atual = b->sentinela;
 
@@ -183,7 +183,7 @@ boolean viratopo_baralho(BARALHO *b, int k) {
         return FALSE;
     }
 
-    registra(VIRATOPO, NULL, k);   // NOVO
+    registra(VIRATOPO, NULL, k);   
 
     if (k == 1) {
         return TRUE;

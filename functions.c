@@ -14,6 +14,12 @@ struct baralho_{
     int tamanho;
 };
 
+struct historico_{
+    char comandos[100][50]; 
+    int indice_inicio;             
+    int quantidade_total;         
+};
+
 BARALHO* criar_baralho(int n) {
     BARALHO *b = (BARALHO *) malloc(sizeof(BARALHO)); 
     if (b == NULL) {
@@ -237,3 +243,52 @@ boolean apagar_baralho(BARALHO **b) {
     *b = NULL;
     return TRUE;
 }
+
+boolean inicializar_historico(HISTORICO *h) {
+    if (h == NULL) {
+        return FALSE;
+    }
+    
+    h->indice_inicio = 0;
+    h->quantidade_total = 0;
+    
+    return TRUE;
+}
+
+boolean adicionar_historico(HISTORICO *h, char *comando) {
+    if (h == NULL || comando == NULL) {
+        return FALSE;
+    }
+
+    int pos;
+
+    if (h->quantidade_total < 100) {
+        pos = (h->indice_inicio + h->quantidade_total) % 100;
+        h->quantidade_total++;
+    } 
+    else {
+        pos = h->indice_inicio;
+        h->indice_inicio = (h->indice_inicio + 1) % 100;
+    }
+
+    strncpy(h->comandos[pos], comando, 49);
+    h->comandos[pos][49] = '\0';
+
+    return TRUE;
+}
+
+boolean remover_historico(HISTORICO *h, char *comando) {
+
+    if (h == NULL || h->quantidade_total == 0) {
+        return FALSE;
+    }
+
+    int pos_topo = (h->indice_inicio + h->quantidade_total - 1) % 100;
+
+    strcpy(comando, h->comandos[pos_topo]);
+
+    h->quantidade_total--;
+
+    return TRUE;
+}
+
